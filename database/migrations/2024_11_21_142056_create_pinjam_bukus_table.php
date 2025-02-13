@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali')->nullable();
-            $table->string('status')->default('borrowed');
+            $table->string('status');
             $table->timestamps();
         });
     }

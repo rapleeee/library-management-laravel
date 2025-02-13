@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\book;
+use App\Models\pinjamBuku;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
@@ -92,5 +93,24 @@ class bookController extends Controller
         $books = book::find($id);
         $books->delete();
         return redirect('books');
+    }
+
+    public function history()
+    {
+        $loans = pinjamBuku::all();
+        return view('books.history', compact('loans'));
+    }
+
+    public function historyEdit(string $id)
+    {
+        $loans = pinjamBuku::find($id);
+        return view('books.historyEdit', compact('loans'));
+    }
+
+    public function historyUpdate(Request $request, string $id)
+    {
+        $loans = pinjamBuku::find($id);
+        $loans->update($request->all());
+        return redirect('books.history');
     }
 }

@@ -2,12 +2,17 @@
 
 use App\Http\Controllers\anggotaController;
 use App\Http\Controllers\bookController;
+use App\Http\Controllers\guzelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/guzel', function () {
+    return view('guzel');
 });
 
 Route::get('/dashboard', function () {
@@ -23,6 +28,10 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('books', bookController::class);
     Route::resource('users', userController::class);
+    Route::get('books.history', [BookController::class, 'history'])->name('books.history');
+    Route::get('books/history/edit/{id}', [BookController::class, 'historyEdit'])->name('books.historyEdit');
+    Route::put('books/history/update/{id}', [BookController::class, 'historyUpdate'])->name('books.historyUpdate');
+
 });
 
 Route::group(['middleware' => ['auth', 'role:anggota']], function () {
@@ -30,5 +39,6 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function () {
 });
 
 
+// Route::resource('guzel', guzelController::class );
 
 require __DIR__.'/auth.php';

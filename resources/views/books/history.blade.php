@@ -17,6 +17,7 @@
                                 <th class="px-6 py-3">Tanggal Pinjam</th>
                                 <th class="px-6 py-3">Tanggal Kembali</th>
                                 <th class="px-6 py-3">Status</th>
+                                <th class="px-6 py-3"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,10 +43,15 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="px-2 py-1 text-xs font-medium rounded-full
-                                            {{ $loan->status === 'borrowed' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800' }}">
-                                            {{ ucfirst($loan->status) }}
+                                            ">{{ $loan->status  }}
                                         </span>
                                     </td>
+                                    <td class="px-6 py-4">
+                                    @if ($loan->status === 'borrowed')
+                                            <a href="{{ route('books.historyEdit', $loan->id) }}" class="text-blue-600 hover:underline">Kembalikan</a>
+                                        @endif
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
